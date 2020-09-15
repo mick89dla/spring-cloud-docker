@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  registration:
+    image: registration
+    hostname: registration
+    container_name: registration 
+    ports:
+      - "8761:8761"
+
+  customers:
+    image: customer
+    hostname: customer
+    container_name: customer 
+    ports:
+      - "5000:5000"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registration:8761/eureka
+  products:
+    image: inventory
+    hostname: inventory
+    container_name: inventory 
+    ports:
+      - "5001:5001"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registration:8761/eureka
+  gateway:
+    image: gateway
+    hostname: gateway
+    container_name: gateway 
+    ports:
+      - "5002:5002"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registration:8761/eureka
+
+       
+
